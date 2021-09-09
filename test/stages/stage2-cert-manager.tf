@@ -7,6 +7,6 @@ module "cert-manager" {
   provision = true
   private_endpoint = false
   kms_enabled = true
-  kms_id      = module.key_protect.guid
+  kms_id      = module.kms_key.kms_id
   kms_key_crn = module.kms_key.crn
 }

@@ -6,7 +6,7 @@ locals {
 
   kms_info = jsonencode({
     id = var.kms_id
-    url = "https://${var.region}.kms.cloud.ibm.com"
+//    url = "https://${var.region}.kms.cloud.ibm.com"
   })
 
   kms_parameters = var.kms_enabled ? {

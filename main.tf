@@ -14,9 +14,9 @@ locals {
     tek_id   = var.kms_key_crn
   } : {}
 
-  base_parameters = {
-    service_endpoints = var.private_endpoint == "true" ? "private" : "public"
-  }
+  base_parameters = var.private_endpoint ? {
+    allowed_network = "private-only"
+  } : {}
 
   parameters = merge(local.base_parameters, local.kms_parameters)
 }

@@ -31,6 +31,24 @@ variable "kms_id" {
   default     = null
 }
 
+variable "kms_public_url" {
+  type        = string
+  description = "The public url of the KMS instance that will be used to encrypt the instance."
+  default     = null
+}
+
+variable "kms_private_url" {
+  type        = string
+  description = "The private url of the KMS instance that will be used to encrypt the instance."
+  default     = null
+}
+
+variable "kms_private_endpoint" {
+  type        = bool
+  description = "Flag indicating the KMS private endpoint should be used"
+  default     = true
+}
+
 variable "kms_key_crn" {
   type        = string
   description = "The crn of the root key in the KMS"

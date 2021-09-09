@@ -7,4 +7,6 @@ module "kms_key" {
   label            = "test-key"
   provision        = true
   kms_id           = module.key_protect.guid
+  kms_public_url   = module.key_protect.public_url
+  kms_private_url  = module.key_protect.private_url
 }

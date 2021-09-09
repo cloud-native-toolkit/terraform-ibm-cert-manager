@@ -1,11 +1,123 @@
 id: github.com/cloud-native-toolkit/terraform-ibm-cert-manager
-name: ""
+name: ibm-cert-manager
 type: terraform
-description: ""
+description: Module to provision an IBM Cloud Certificate Manager instance.
 tags:
-  - tools
-  - devops
+  - ibm cloud
+  - certificate
+  - cert manager
 versions:
+  - platforms: []
+    providers:
+      - name: ibm
+        source: "ibm-cloud/ibm"
+    dependencies:
+      - id: resource_group
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+            version: ">= 1.0.0"
+      - id: kms_key
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-kms-key
+            version: ">= 0.0.0"
+    variables:
+      - name: resource_group_name
+        moduleRef:
+          id: resource_group
+          output: name
+        type: string
+        description: The name of the IBM Cloud resource group where the Certificate Manager instance will be/has been provisioned.
+      - name: kms_id
+        moduleRef:
+          id: kms_key
+          output: kms_id
+        type: string
+        description: The crn of the KMS instance that will be used to encrypt the instance.
+        default: "null"
+        optional: true
+      - name: kms_key_crn
+        moduleRef:
+          id: kms_key
+          output: crn
+        type: string
+        description: The crn of the root key in the KMS
+        default: "null"
+        optional: true
+      - name: kms_private_url
+        moduleRef:
+          id: kms_key
+          output: kms_private_url
+        type: string
+        description: The private url of the KMS instance that will be used to encrypt the instance.
+        default: "null"
+        optional: true
+      - name: kms_public_url
+        moduleRef:
+          id: kms_key
+          output: kms_public_url
+        type: string
+        description: The public url of the KMS instance that will be used to encrypt the instance.
+        default: "null"
+        optional: true
+      - name: region
+        scope: global
+        type: string
+        description: The region where the Certificate Manager will be/has been provisioned.
+      - name: ibmcloud_api_key
+        scope: global
+        type: string
+        description: The IBM Cloud api token
+      - name: provision
+        type: bool
+        description: Flag indicating that the instance should be provisioned. If false then an existing instance will be looked up
+        default: true
+        optional: true
+      - name: kms_enabled
+        type: bool
+        description: Flag indicating that kms encryption should be enabled for this instance
+        default: false
+        optional: true
+      - name: kms_private_endpoint
+        type: bool
+        description: Flag indicating the KMS private endpoint should be used
+        default: true
+        optional: true
+      - name: name_prefix
+        type: string
+        description: The name prefix for the Certificate Manager resource. If not provided will default to resource group name.
+        default: ""
+        optional: true
+      - name: name
+        type: string
+        description: Name of the Certificate Manager. If not provided will be generated as $name_prefix-$label
+        default: ""
+        optional: true
+      - name: label
+        type: string
+        description: Label used to build the Certificate Manager name if not provided.
+        default: cm
+        optional: true
+      - name: private_endpoint
+        type: bool
+        description: Flag indicating that the service should be access using private endpoints
+        default: true
+        optional: true
+    version: v1.0.0
+    outputs:
+      - name: id
+        description: The Object Storage instance id
+      - name: name
+        description: The Object Storage instance name
+      - name: crn
+        description: The crn of the Object Storage instance
+      - name: location
+        description: The Object Storage instance location
+      - name: service
+        description: The name of the key provisioned for the Object Storage instance
+      - name: label
+        description: The label used for the Object Storage instance
+      - name: type
+        description: The type of the resource
   - platforms:
       - kubernetes
       - ocp3
@@ -27,28 +139,3 @@ versions:
     #          version: ">= 1.6.0"
     variables: []
     version: v0.0.0
-#    - name: cluster_type
-#      moduleRef:
-#        id: cluster
-#        output: type_code
-#    - name: cluster_ingress_hostname
-#      moduleRef:
-#        id: cluster
-#        output: ingress_hostname
-#    - name: cluster_config_file
-#      moduleRef:
-#        id: cluster
-#        output: config_file_path
-#    - name: tls_secret_name
-#      moduleRef:
-#        id: cluster
-#        output: tls_secret_name
-#    - name: releases_namespace
-#      moduleRef:
-#        id: namespace
-#        output: name
-#        discriminator: tools
-#    - name: icon_url
-#      moduleRef:
-#        id: dashboard
-#        output: base_icon_url

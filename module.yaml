@@ -43,5 +43,7 @@ versions:
         output: kms_public_url
     - name: region
       scope: global
+    - name: name_prefix
+      scope: global
     - name: ibmcloud_api_key
       scope: global

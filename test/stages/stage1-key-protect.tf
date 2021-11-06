@@ -5,5 +5,4 @@ module "key_protect" {
   region                   = var.region
   name_prefix              = var.name_prefix
   provision                = true
-  ibmcloud_api_key         = var.ibmcloud_api_key
 }

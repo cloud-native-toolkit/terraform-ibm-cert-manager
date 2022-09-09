@@ -33,8 +33,18 @@ data ibm_resource_group resource_group {
   name = var.resource_group_name
 }
 
+module "service_authorization" {
+  count = var.kms_enabled ? 1 : 0
+  source = "github.com/terraform-ibm-modules/terraform-ibm-toolkit-iam-service-authorization.git?ref=v1.2.13"
+
+  source_service_name = "kms"
+  target_service_name = "cloudcerts"
+  roles = ["Reader"]
+}
+
 resource ibm_resource_instance cm {
   count = var.provision ? 1 : 0
+  depends_on = [module.service_authorization]
 
   name              = local.name
   location          = var.region

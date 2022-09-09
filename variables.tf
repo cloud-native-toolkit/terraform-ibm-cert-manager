@@ -8,6 +8,13 @@ variable "region" {
   type        = string
 }
 
+variable "ibmcloud_api_key" {
+  type        = string
+  description = "The IBM Cloud api key"
+  sensitive   = true
+  default     = ""
+}
+
 variable "provision" {
   description = "Flag indicating that the instance should be provisioned. If false then an existing instance will be looked up"
   type = bool

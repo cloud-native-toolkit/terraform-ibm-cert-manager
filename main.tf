@@ -37,6 +37,7 @@ module "service_authorization" {
   count = var.kms_enabled ? 1 : 0
   source = "github.com/terraform-ibm-modules/terraform-ibm-toolkit-iam-service-authorization.git?ref=v1.2.13"
 
+  ibmcloud_api_key    = var.ibmcloud_api_key
   source_service_name = "kms"
   target_service_name = "cloudcerts"
   roles = ["Reader"]

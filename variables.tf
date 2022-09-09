@@ -80,3 +80,9 @@ variable "private_endpoint" {
   description = "Flag indicating that the service should be access using private endpoints"
   default     = true
 }
+
+variable "create_auth" {
+  type        = bool
+  description = "Flag indicating the service authorization should be created to allow this service to access the KMS service"
+  default     = true
+}

@@ -33,8 +33,29 @@ data ibm_resource_group resource_group {
   name = var.resource_group_name
 }
 
+module "kms_auth" {
+  count = var.kms_enabled && var.create_auth ? 1 : 0
+  source = "github.com/terraform-ibm-modules/terraform-ibm-toolkit-iam-service-authorization.git?ref=v1.2.13"
+
+  ibmcloud_api_key    = var.ibmcloud_api_key
+  source_service_name = "cloudcerts"
+  target_service_name = "kms"
+  roles = ["Reader"]
+}
+
+module "hpcs_auth" {
+  count = var.kms_enabled && var.create_auth ? 1 : 0
+  source = "github.com/terraform-ibm-modules/terraform-ibm-toolkit-iam-service-authorization.git?ref=v1.2.13"
+
+  ibmcloud_api_key    = var.ibmcloud_api_key
+  source_service_name = "cloudcerts"
+  target_service_name = "hs-crypto"
+  roles = ["Reader"]
+}
+
 resource ibm_resource_instance cm {
   count = var.provision ? 1 : 0
+  depends_on = [module.kms_auth, module.hpcs_auth]
 
   name              = local.name
   location          = var.region

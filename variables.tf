@@ -8,6 +8,13 @@ variable "region" {
   type        = string
 }
 
+variable "ibmcloud_api_key" {
+  type        = string
+  description = "The IBM Cloud api key"
+  sensitive   = true
+  default     = ""
+}
+
 variable "provision" {
   description = "Flag indicating that the instance should be provisioned. If false then an existing instance will be looked up"
   type = bool
@@ -71,5 +78,11 @@ variable "label" {
 variable "private_endpoint" {
   type        = bool
   description = "Flag indicating that the service should be access using private endpoints"
+  default     = true
+}
+
+variable "create_auth" {
+  type        = bool
+  description = "Flag indicating the service authorization should be created to allow this service to access the KMS service"
   default     = true
 }

@@ -38,8 +38,8 @@ module "kms_auth" {
   source = "github.com/terraform-ibm-modules/terraform-ibm-toolkit-iam-service-authorization.git?ref=v1.2.13"
 
   ibmcloud_api_key    = var.ibmcloud_api_key
-  source_service_name = "kms"
-  target_service_name = "cloudcerts"
+  source_service_name = "cloudcerts"
+  target_service_name = "kms"
   roles = ["Reader"]
 }
 
@@ -48,8 +48,8 @@ module "hpcs_auth" {
   source = "github.com/terraform-ibm-modules/terraform-ibm-toolkit-iam-service-authorization.git?ref=v1.2.13"
 
   ibmcloud_api_key    = var.ibmcloud_api_key
-  source_service_name = "hs-crypto"
-  target_service_name = "cloudcerts"
+  source_service_name = "cloudcerts"
+  target_service_name = "hs-crypto"
   roles = ["Reader"]
 }
 

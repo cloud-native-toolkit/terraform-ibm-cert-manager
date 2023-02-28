@@ -1,5 +1,7 @@
 # IBM Certificate Manager module
 
+## ⚠️ This module is deprecated and the repo has been archived because the IBM Cloud Certificate Manager service is no longer supported.
+
 Module to provision or lookup an instance of Certificate Manager on IBM Cloud. Optionally, the Certificate Manager instance can be encrypted with a root key from a KMS instance.
 
 ## Software dependencies
